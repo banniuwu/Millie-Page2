@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millie´s Info.</title>
+    <style>
+        /* 1. CONFIGURACIÓN DEL FONDO Y CUERPO */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #FFB6C1 0%, #FFFFFF 100%) no-repeat fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 2. PANTALLA DE CARGA (LOADER) */
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white; /* Fondo blanco mientras carga */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Siempre encima de todo */
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-text {
+            font-size: 20px;
+            color: #FFB6C1;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            width: 250px;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #FFB6C1;
+            /* Animación de la barra: 1.5 segundos */
+            animation: cargaBarra 1s linear forwards;
+        }
+
+        @keyframes cargaBarra {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* 3. ANIMACIONES DE LA PÁGINA (CONTENIDO) */
+        @keyframes aparecerSubiendo {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ocultamos el contenido inicialmente para que no se vea tras el loader */
+        #main-content {
+            display: none; 
+        }
+
+        .title-box {
+            background-color: white;
+            width: 80%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: aparecerSubiendo 0.8s ease-out forwards;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .left-box, .right-box {
+            background-color: white;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: aparecerSubiendo 0.8s ease-out 0.3s backwards;
+        }
+
+        .left-box { flex: 1.2; }
+        .right-box { flex: 1; }
+
+        /* LÓGICA DEL HOVER */
+        .content-container:hover .left-box,
+        .content-container:hover .right-box {
+            transform: scale(0.9);
+        }
+
+        .left-box:hover, .right-box:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader-wrapper">
+        <div class="loader-text">Cargando :3</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="title-box">
+            <h1>Bienvenid@ a mi página :3</h1>
+        </div>
+
+        <div class="content-container">
+            <div class="left-box">
+                <p>Info</p>
+            </div>
+            <div class="right-box">
+                <p>IMG.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Esperamos 1500ms (1.5 segundos)
+            setTimeout(function() {
+                // 1. Ocultamos el loader
+                const loader = document.getElementById('loader-wrapper');
+                loader.style.opacity = '0';
+                
+                // 2. Mostramos el contenido
+                const content = document.getElementById('main-content');
+                content.style.display = 'block';
+
+                // 3. Eliminamos el loader del código después de la transición
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+        };
+    </script>
+
+</body>
+</html>
